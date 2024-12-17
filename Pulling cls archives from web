@@ -1,0 +1,41 @@
+import wget
+import zipfile
+import os
+
+pasta_destino = 'name of the folder in your computer'
+
+# Links dos arquivos a serem baixados
+
+# Formato: 'URL', 'nome desejado do arquivo'
+urls = [
+    ('link_from_the_web_site.com', 'name_of_the_archive_as_you_want_it_to_bedownloaded.csv'),
+    ('link_from_the_web_site.com', 'name_of_the_archive_as_you_want_it_to_bedownloaded.csv'),
+    ('link_from_the_web_site.com', 'name_of_the_archive_as_you_want_it_to_bedownloaded.csv'),
+#You can repeat it as many times as wanted
+]
+
+# Percorre a lista de arquivos na pasta de destino
+for filename in os.listdir(pasta_destino):
+    # Verifica se o arquivo tem o mesmo nome que um dos arquivos a serem baixados 
+    if filename in [filename for url, filename in urls]:
+        # Deleta o arquivo antigo
+        os.remove(os.path.join(pasta_destino, filename))
+
+# Baixa os csvs das URLs a cima
+for url, filename in urls:
+    arquivo_destino = os.path.join(pasta_destino, filename)
+    wget.download(url, arquivo_destino)
+
+# Baixa o arquivo Zip
+    url = 'link_of_the_archive.zip'
+filename = wget.download(url, 'name_of_the_file.zip')
+
+# Descomprime o arquivo Zip na pasta desejada
+with zipfile.ZipFile(filename, 'r') as zip_ref:
+    zip_ref.extractall(pasta_destino)
+    # Deleta os arquivos que não serão usados
+    for filename in os.listdir(pasta_destino):
+        if filename == 'Name_of_the_archives.csv':
+            os.remove(os.path.join(pasta_destino, filename))
+        elif filename == 'Name_of_the_archives.csv':
+            os.remove(os.path.join(pasta_destino, filename))
